@@ -32,16 +32,31 @@ makeGetRequest();
 
 const tbody = document.getElementById("tbody");
 const tr = document.createElement("tr");
-const th = document.getElementById("th");
+const th_id = document.getElementById("th");
 const td = document.getElementById("td");
 const delete_btn = document.getElementById("delete-btn");
 
 let tr_clone = tr.cloneNode(true);
-let th_clone = th.cloneNode(true);
-th_clone.innerText = "4";
-tr_clone.innerText = "Umar"
-let td_clone = td.cloneNode(true);
-tr_clone.append(th_clone);
+
+let th_id_clone = th.cloneNode(true);
+th_id_clone.innerText = "3";
+
+let td_name_clone = td.cloneNode(true);
+td_name_clone.innerText = "Umar"
+
+let td_email_clone = td.cloneNode(true);
+td_email_clone.innerText = "umarasaboor@gmail.com"
+
+let td_address_clone = td.cloneNode(true);
+td_address_clone.innerText = "Lahore, Pakistan"
+
+let delete_btn_clone = delete_btn.cloneNode(true);
+
+tr_clone.append(th_id_clone);
+tr_clone.appendChild(td_name_clone);
+tr_clone.appendChild(td_email_clone);
+tr_clone.appendChild(td_address_clone);
+tr_clone.appendChild(delete_btn_clone);
 tbody.appendChild(tr_clone);
 
-console.log(th_clone, tr_clone, tbody);
+console.log(th_id_clone, tr_clone, tbody);
