@@ -7,21 +7,17 @@ function makeGetRequest() {
   xhr.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       let users = JSON.parse(this.responseText);
-    //   console.log(users);
-    //   users.map((user) =>
-    //     console.log(
-    //       "user#:",
-    //       user?.id,
-    //       ",user name: ",
-    //       user?.name,
-    //       ",user email: ",
-    //       user?.email,
-    //       ",user address:",
-    //       user?.address["street"],
-    //       user?.address["suite"],
-    //       user.address["city"]
-    //     )
-    //   );
+      console.log(users);
+      users.map((user) => {
+        let makeAddress =
+          user?.address["street"] +
+          "," +
+          user?.address["suite"] +
+          "," +
+          user?.address["city"] +
+          ".";
+        return displayUserInfo(user?.id, user?.name, user?.email, makeAddress);
+      });
     }
   };
 
@@ -30,33 +26,38 @@ function makeGetRequest() {
 
 makeGetRequest();
 
-const tbody = document.getElementById("tbody");
-const tr = document.createElement("tr");
-const th_id = document.getElementById("th");
-const td = document.getElementById("td");
-const delete_btn = document.getElementById("delete-btn");
+//make function and pass pararemetes of user....;
 
-let tr_clone = tr.cloneNode(true);
+function displayUserInfo(id, name, email, address) {
+  const tbody = document.getElementById("tbody");
+  let tr = document.createElement("tr");
 
-let th_id_clone = th.cloneNode(true);
-th_id_clone.innerText = "3";
+  let th = document.createElement("th");
+  th.innerText = id;
 
-let td_name_clone = td.cloneNode(true);
-td_name_clone.innerText = "Umar"
+  let td_name = document.createElement("td");
+  td_name.innerText = name;
 
-let td_email_clone = td.cloneNode(true);
-td_email_clone.innerText = "umarasaboor@gmail.com"
+  let td_email = document.createElement("td");
+  td_email.innerText = email;
 
-let td_address_clone = td.cloneNode(true);
-td_address_clone.innerText = "Lahore, Pakistan"
+  let td_address = document.createElement("td");
+  td_address.innerText = address;
 
-let delete_btn_clone = delete_btn.cloneNode(true);
+  let td_button = document.createElement("td");
 
-tr_clone.append(th_id_clone);
-tr_clone.appendChild(td_name_clone);
-tr_clone.appendChild(td_email_clone);
-tr_clone.appendChild(td_address_clone);
-tr_clone.appendChild(delete_btn_clone);
-tbody.appendChild(tr_clone);
+  let delete_button = document.createElement("button");
+  delete_button.classList.add("btn");
+  delete_button.classList.add("btn-danger");
+  delete_button.innerText = "Delete";
 
-console.log(th_id_clone, tr_clone, tbody);
+  td_button.append(delete_button);
+
+  tr.append(th);
+  tr.append(td_name);
+  tr.append(td_email);
+  tr.append(td_address);
+  tr.appendChild(td_button);
+
+  tbody.appendChild(tr);
+}
