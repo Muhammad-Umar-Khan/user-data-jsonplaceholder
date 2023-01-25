@@ -7,7 +7,6 @@ function makeGetRequest() {
   xhr.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       let users = JSON.parse(this.responseText);
-      console.log(users);
       users.map((user) => {
         let makeAddress =
           user?.address["street"] +
@@ -24,6 +23,32 @@ function makeGetRequest() {
   xhr.send();
 }
 
+//Make delete request;
+
+function makeDeleteRequest(id) {
+  let user_to_be_deleted = document.getElementById(id);
+  user_to_be_deleted.remove();
+  let body = document.getElementById("body");
+  let tbody = document.getElementById("tbody");
+  if (tbody.childNodes.length <= 0) {
+    let text = document.createElement("h2");
+    text.innerText = "No reports found";
+    text.classList.add("text-center")
+    text.classList.add("mt-5")
+
+    let header = document.getElementById("header");
+    header.remove();
+    let image = document.createElement("img");
+    image.classList.add("rounded");
+    image.classList.add("mx-auto");
+    image.classList.add("d-block");
+    image.alt = "No-content found";
+    image.src = "./assets/no-content.png";
+    body.append(image);
+    body.append(text);
+  }
+}
+
 makeGetRequest();
 
 //make function and pass pararemetes of user....;
@@ -31,6 +56,7 @@ makeGetRequest();
 function displayUserInfo(id, name, email, address) {
   const tbody = document.getElementById("tbody");
   let tr = document.createElement("tr");
+  tr.id = id;
 
   let th = document.createElement("th");
   th.innerText = id;
@@ -50,6 +76,7 @@ function displayUserInfo(id, name, email, address) {
   delete_button.classList.add("btn");
   delete_button.classList.add("btn-danger");
   delete_button.innerText = "Delete";
+  delete_button.addEventListener("click", () => makeDeleteRequest(id));
 
   td_button.append(delete_button);
 
