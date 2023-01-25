@@ -24,35 +24,17 @@ function makeGetRequest() {
 }
 
 //Make delete request;
-
 function makeDeleteRequest(id) {
   let user_to_be_deleted = document.getElementById(id);
   user_to_be_deleted.remove();
-  let body = document.getElementById("body");
-  let tbody = document.getElementById("tbody");
-  if (tbody.childNodes.length <= 0) {
-    let text = document.createElement("h2");
-    text.innerText = "No reports found";
-    text.classList.add("text-center")
-    text.classList.add("mt-5")
 
-    let header = document.getElementById("header");
-    header.remove();
-    let image = document.createElement("img");
-    image.classList.add("rounded");
-    image.classList.add("mx-auto");
-    image.classList.add("d-block");
-    image.alt = "No-content found";
-    image.src = "./assets/no-content.png";
-    body.append(image);
-    body.append(text);
-  }
+  //shows image when there are no recoreds;
+  noContent();
 }
 
 makeGetRequest();
 
 //make function and pass pararemetes of user....;
-
 function displayUserInfo(id, name, email, address) {
   const tbody = document.getElementById("tbody");
   let tr = document.createElement("tr");
@@ -87,4 +69,26 @@ function displayUserInfo(id, name, email, address) {
   tr.appendChild(td_button);
 
   tbody.appendChild(tr);
+}
+
+function noContent() {
+  let body = document.getElementById("body");
+  let tbody = document.getElementById("tbody");
+  if (tbody.childNodes.length <= 0) {
+    let text = document.createElement("h2");
+    text.innerText = "No reports found";
+    text.classList.add("text-center");
+    text.classList.add("mt-5");
+
+    let header = document.getElementById("header");
+    header.remove();
+    let image = document.createElement("img");
+    image.classList.add("rounded");
+    image.classList.add("mx-auto");
+    image.classList.add("d-block");
+    image.alt = "No-content found";
+    image.src = "./assets/no-content.png";
+    body.append(image);
+    body.append(text);
+  }
 }
